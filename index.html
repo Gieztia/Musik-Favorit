@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mixtape.co — Survei Musik Favorit</title>
+<meta name="description" content="Survei musik favorit: genre, artis, lagu, dan platform yang paling kamu suka. Isi cuma 1 menit!">
+<meta name="theme-color" content="#6a5ae0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%A7%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+:root{
+  --ink:#1b1240;
+  --purple:#6a5ae0;
+  --purple2:#7d6df0;
+  --pink:#ff7ab8;
+  --blush:#ffd6e8;
+  --orange:#ff7a1a;
+  --yellow:#ffd23f;
+  --teal:#1ec8c8;
+  --green:#3ddc84;
+  --red:#ff3b5c;
+  --blue:#3b82f6;
+  --lilac:#b583ff;
+  --cream:#fff6e3;
+  --font-d:'Bowlby One','Arial Black',Impact,sans-serif;
+  --font-b:'Space Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font-b);color:var(--ink);line-height:1.5;overflow-x:hidden;
+  background-color:var(--purple);
+  background-image:conic-gradient(var(--purple2) 25%,transparent 0 50%,var(--purple2) 0 75%,transparent 0);
+  background-size:84px 84px;
+}
+img,svg{display:block;max-width:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:inherit}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+
+/* ---------- Reveal on scroll ---------- */
+.js .reveal{opacity:0;transform:translateY(46px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0ms);will-change:transform,opacity}
+.js .reveal-left{transform:translateX(-60px)}
+.js .reveal-right{transform:translateX(60px)}
+.js .reveal-pop{transform:scale(.82) translateY(20px)}
+.js .reveal.in{opacity:1;transform:none}
+
+/* ---------- Top bar ---------- */
+.topbar{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0;flex-wrap:wrap}
+.logo{display:inline-flex;align-items:center;gap:10px;background:var(--cream);border:4px solid var(--ink);border-radius:999px;padding:6px 18px 6px 8px;font-family:var(--font-d);font-size:1rem;letter-spacing:.02em;text-decoration:none;box-shadow:4px 4px 0 var(--ink)}
+.logo i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--yellow);font-style:normal;font-size:1rem;animation:spin 6s linear infinite}
+.legend{display:flex;border:4px solid var(--ink);border-radius:10px;overflow:hidden;background:var(--cream);box-shadow:4px 4px 0 var(--ink);font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.legend span{padding:6px 10px;border-right:3px solid var(--ink);white-space:nowrap}
+.legend span:last-child{border-right:0}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;overflow:hidden;padding-bottom:0}
+.cloud{position:absolute;width:210px;opacity:1;z-index:1;animation:drift 14s ease-in-out infinite alternate}
+.cloud.c1{top:70px;left:-40px}
+.cloud.c2{top:240px;right:-50px;width:250px;animation-delay:-5s}
+.cloud.c3{top:420px;left:6%;width:150px;animation-delay:-9s}
+.hero-main{position:relative;z-index:3;text-align:center;padding:30px 0 10px}
+.pill{display:inline-block;background:var(--cream);border:4px solid var(--ink);border-radius:999px;padding:6px 20px;font-weight:700;font-size:.9rem;letter-spacing:.04em;box-shadow:4px 4px 0 var(--ink)}
+.hero-main .pill+.stage-title{margin-top:18px}
+.stage-title{position:relative;display:grid;place-items:center;padding:34px 10px 20px}
+.stage-title::before{content:"";position:absolute;inset:0 4% 0;background:var(--blush);border:5px solid var(--ink);border-radius:50%;z-index:0;transform:scale(1,.92)}
+.title{position:relative;z-index:1;font-family:var(--font-d);font-weight:400;line-height:.95;text-transform:uppercase;
+  font-size:clamp(2.7rem,12.4vw,8.2rem);color:var(--cream);letter-spacing:.01em;padding-bottom:.32em;
+  -webkit-text-stroke:.06em var(--ink);paint-order:stroke fill;
+  text-shadow:0 .07em 0 var(--red),0 .14em 0 var(--orange),0 .21em 0 var(--yellow),0 .28em 0 var(--green),0 .35em 0 var(--teal),0 .42em 0 var(--ink)}
+.title span{display:block}
+.title .l2{animation:wob 4s ease-in-out infinite}
+.sub{position:relative;z-index:1;margin-top:34px;max-width:560px;font-weight:500;font-size:1.05rem}
+.cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:26px;position:relative;z-index:3}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-d);font-size:1.05rem;text-decoration:none;cursor:pointer;
+  background:var(--yellow);border:4px solid var(--ink);border-radius:999px;padding:15px 30px;box-shadow:6px 6px 0 var(--ink);
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease),background .2s}
+.btn:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+.btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink)}
+.btn:focus-visible{outline:4px dashed var(--cream);outline-offset:4px}
+.btn.alt{background:var(--cream)}
+.btn:disabled{cursor:progress;filter:saturate(.7);transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
+.btn.loading .btn-ico{animation:spin 1s linear infinite}
+
+.notes span{position:absolute;z-index:2;font-family:var(--font-d);color:var(--yellow);-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:3px 3px 0 var(--ink);animation:floaty 5s ease-in-out infinite}
+.notes .n1{left:7%;top:150px;font-size:3rem;color:var(--pink)}
+.notes .n2{right:8%;top:130px;font-size:3.6rem;animation-delay:-1.5s}
+.notes .n3{left:14%;top:330px;font-size:2.4rem;color:var(--teal);animation-delay:-3s}
+.notes .n4{right:13%;top:360px;font-size:2.6rem;color:var(--green);animation-delay:-2s}
+.spark{position:absolute;z-index:2;width:46px;animation:twinkle 2.4s ease-in-out infinite}
+.spark.s1{left:20%;top:120px}.spark.s2{right:19%;top:280px;animation-delay:-1s;width:38px}.spark.s3{left:11%;top:470px;animation-delay:-1.6s;width:34px}
+
+.floor{position:relative;z-index:2;margin-top:-6px;padding:46px 0 0;border-top:5px solid var(--ink);
+  background-color:#fff;background-image:conic-gradient(var(--blush) 25%,#fff 0 50%,var(--blush) 0 75%,#fff 0);background-size:84px 84px}
+.crew{display:flex;justify-content:center;align-items:flex-end;gap:clamp(4px,3vw,46px);flex-wrap:wrap;padding-bottom:0;margin-top:-170px}
+.char{position:relative;display:grid;justify-items:center;padding-bottom:34px}
+.char svg{position:relative;z-index:2;width:clamp(120px,19vw,200px);height:auto;overflow:visible}
+.char .coin{position:absolute;bottom:6px;left:50%;width:clamp(120px,19vw,190px);height:clamp(30px,5vw,46px);transform:translateX(-50%);
+  background:var(--yellow);border:4px solid var(--ink);border-radius:50%;box-shadow:0 9px 0 #e0a100,0 9px 0 4px var(--ink)}
+.char.big svg{width:clamp(140px,23vw,240px)}
+.bob{animation:bob 2.2s ease-in-out infinite}
+.bob.d1{animation-delay:-.7s}.bob.d2{animation-delay:-1.4s}.bob.d3{animation-delay:-.3s}
+
+.badge{position:absolute;z-index:4;left:max(4%,16px);bottom:70px;width:104px;height:104px;border-radius:50%;background:var(--cream);border:4px solid var(--ink);display:grid;place-items:center;text-align:center;font-family:var(--font-d);font-size:.78rem;line-height:1.1;transform:rotate(-12deg);box-shadow:4px 4px 0 var(--ink)}
+
+/* ---------- Marquee ---------- */
+.marquee{background:var(--yellow);border-block:5px solid var(--ink);overflow:hidden;padding:12px 0;position:relative;z-index:4}
+.marquee-track{display:flex;width:max-content;animation:marquee 26s linear infinite}
+.marquee-track span{font-family:var(--font-d);font-size:clamp(1.2rem,3vw,1.8rem);padding-right:34px;white-space:nowrap;text-transform:uppercase}
+.marquee-track span b{font-weight:400;color:var(--red);margin:0 6px}
+.marquee-track span b:nth-child(2n){color:var(--purple)}
+.marquee-track span b:nth-child(3n){color:var(--green)}
+
+/* ---------- Sections ---------- */
+section{position:relative}
+.section{padding:clamp(70px,10vw,120px) 0 20px}
+.sec-head{text-align:center;margin-bottom:54px}
+.sec-head .pill{margin-bottom:16px}
+.h2{font-family:var(--font-d);font-weight:400;text-transform:uppercase;line-height:1;font-size:clamp(2.1rem,7vw,4.6rem);color:var(--cream);
+  -webkit-text-stroke:.05em var(--ink);paint-order:stroke fill;text-shadow:.06em .06em 0 var(--ink),.12em .12em 0 var(--pink)}
+.sec-head p{margin:22px auto 0;max-width:560px;color:var(--cream);font-weight:500;text-shadow:0 2px 0 var(--ink)}
+
+/* ---------- Window cards ---------- */
+.win{--accent:var(--orange);position:relative;background:var(--cream);border:4px solid var(--ink);border-radius:20px;overflow:hidden;
+  box-shadow:8px 8px 0 var(--ink),15px 15px 0 var(--accent)}
+.win-bar{display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:var(--accent);border-bottom:4px solid var(--ink)}
+.dot{width:14px;height:14px;border-radius:50%;border:3px solid var(--ink)}
+.dot.r{background:var(--red)}.dot.y{background:var(--yellow)}.dot.g{background:var(--green)}
+.win-title{margin-left:8px;font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.feat{text-align:center}
+.feat .body{padding:26px 22px 30px}
+.feat .ico{display:grid;place-items:center;width:84px;height:84px;margin:0 auto 16px;border:4px solid var(--ink);border-radius:24px;font-size:2.4rem;background:var(--accent);box-shadow:4px 4px 0 var(--ink);transform:rotate(-6deg)}
+.feat h3{font-family:var(--font-d);font-weight:400;font-size:1.35rem;text-transform:uppercase;margin-bottom:8px}
+.feat p{font-weight:500;font-size:.98rem}
+
+/* ---------- Form ---------- */
+.form-win{--accent:var(--pink);max-width:820px;margin:0 auto}
+.form-body{padding:clamp(22px,4vw,40px)}
+.field{margin-bottom:28px}
+.field.bad .label{color:var(--red)}
+.label{display:block;font-family:var(--font-d);font-weight:400;font-size:1.02rem;text-transform:uppercase;margin-bottom:10px}
+.label small{font-family:var(--font-b);font-weight:500;text-transform:none;opacity:.7;font-size:.82rem;margin-left:4px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.in-box{width:100%;background:#fff;border:3px solid var(--ink);border-radius:14px;padding:13px 16px;font-weight:500;outline:none;transition:box-shadow .2s,transform .2s,background .2s}
+.in-box:focus{box-shadow:5px 5px 0 var(--yellow),5px 5px 0 3px var(--ink);transform:translate(-2px,-2px);background:#fffdf5}
+select.in-box{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:44px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M4 7l6 6 6-6' fill='none' stroke='%231b1240' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center}
+textarea.in-box{resize:vertical;min-height:96px}
+.err{min-height:1.2em;margin-top:6px;font-size:.85rem;font-weight:700;color:var(--red)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{position:relative;display:inline-block}
+.chip input{position:absolute;opacity:0;inset:0;width:100%;height:100%;cursor:pointer;margin:0}
+.chip span{display:inline-flex;align-items:center;gap:8px;background:#fff;border:3px solid var(--ink);border-radius:999px;padding:9px 16px;font-weight:700;font-size:.95rem;cursor:pointer;transition:transform .2s var(--ease),box-shadow .2s var(--ease),background .2s;user-select:none}
+.chip:hover span{transform:translateY(-3px)}
+.chip input:checked+span{background:var(--c,var(--yellow));transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.chip input:focus-visible+span{outline:3px dashed var(--ink);outline-offset:3px}
+.rating-wrap{display:flex;align-items:center;gap:18px}
+.rating-out{flex:none;display:grid;place-items:center;width:62px;height:62px;border-radius:50%;background:var(--yellow);border:4px solid var(--ink);font-family:var(--font-d);font-size:1.5rem;box-shadow:3px 3px 0 var(--ink)}
+input[type=range]{--p:44%;-webkit-appearance:none;appearance:none;width:100%;height:20px;border-radius:999px;border:3px solid var(--ink);outline:none;cursor:pointer;
+  background:linear-gradient(90deg,var(--red),var(--orange),var(--yellow),var(--green),var(--teal)) 0 0/100% 100%}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;border-radius:50%;background:var(--cream);border:4px solid var(--ink);box-shadow:3px 3px 0 var(--ink);cursor:grab}
+input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--cream);border:4px solid var(--ink);box-shadow:3px 3px 0 var(--ink);cursor:grab}
+input[type=range]:focus-visible{outline:3px dashed var(--ink);outline-offset:6px}
+.scale{display:flex;justify-content:space-between;font-size:.8rem;font-weight:700;margin-top:8px;padding:0 4px}
+.counter{text-align:right;font-size:.8rem;font-weight:700;opacity:.7;margin-top:4px}
+.form-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:8px}
+.form-foot small{font-weight:500;opacity:.75;max-width:340px}
+
+/* ---------- Results ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:34px;margin-bottom:56px}
+.stat{--accent:var(--teal);text-align:center}
+.stat .body{padding:20px 14px 24px}
+.stat .num{font-family:var(--font-d);font-size:clamp(1.8rem,4.2vw,3rem);line-height:1.1;word-break:break-word}
+.stat .cap{font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin-top:4px}
+.panels{display:grid;grid-template-columns:1.25fr 1fr;gap:44px;align-items:start}
+.panel .body{padding:26px 24px 30px}
+.panel h3{font-family:var(--font-d);font-weight:400;text-transform:uppercase;font-size:1.2rem;margin-bottom:18px}
+.stack{display:grid;gap:44px}
+.bar-row{display:grid;grid-template-columns:96px 1fr 76px;align-items:center;gap:10px;margin-bottom:12px}
+.bar-label{font-weight:700;font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar{display:block;height:26px;border:3px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--c,var(--yellow));border-right:3px solid var(--ink);border-radius:0 999px 999px 0;transition:width 1.3s var(--ease);transition-delay:var(--d,0ms)}
+.reveal.in .bar i,.no-js .bar i{width:var(--w,0)}
+html:not(.js) .bar i{width:var(--w,0)}
+.bar-val{font-size:.8rem;font-weight:700;text-align:right;white-space:nowrap}
+.rank{list-style:none;display:grid;gap:12px}
+.rank-item{display:flex;align-items:center;gap:12px;background:#fff;border:3px solid var(--ink);border-radius:14px;padding:8px 12px;box-shadow:3px 3px 0 var(--c,var(--ink))}
+.rank-no{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:3px solid var(--ink);background:var(--c);font-family:var(--font-d);font-weight:400}
+.rank-name{flex:1;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rank-count{font-weight:700;font-size:.85rem;opacity:.7}
+.empty{font-weight:500;opacity:.8}
+.state{text-align:center;font-weight:700;color:var(--cream);text-shadow:0 2px 0 var(--ink);margin-bottom:26px}
+.demo-note{display:block;width:fit-content;margin:0 auto 34px;background:var(--cream);border:3px dashed var(--ink);border-radius:14px;padding:10px 18px;font-weight:700;font-size:.9rem;text-align:center}
+.demo-note[hidden],.state[hidden]{display:none}
+.recent-title{margin:70px 0 36px;text-align:center}
+.recent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:34px}
+.mini{--accent:var(--yellow);box-shadow:6px 6px 0 var(--ink),11px 11px 0 var(--accent)}
+.mini .win-bar{height:32px}
+.mini-body{padding:14px 16px 18px}
+.mini-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.mini-emoji{font-size:1.3rem}
+.tag{display:inline-block;border:3px solid var(--ink);border-radius:999px;padding:1px 12px;font-size:.78rem;font-weight:700;margin-bottom:8px}
+.mini-song{font-family:var(--font-d);font-size:1rem;line-height:1.15;word-break:break-word}
+.mini-by{font-weight:500;font-size:.88rem}
+.mini-when{font-size:.78rem;font-weight:700;opacity:.65;margin-top:6px}
+
+/* ---------- Footer ---------- */
+.footer{margin-top:clamp(70px,10vw,120px);position:relative;overflow:hidden;text-align:center;padding-top:50px;border-top:5px solid var(--ink);background:var(--purple2)}
+.footer .big{font-family:var(--font-d);font-weight:400;text-transform:uppercase;line-height:.95;font-size:clamp(2.6rem,10vw,6.4rem);color:var(--cream);
+  -webkit-text-stroke:.05em var(--ink);paint-order:stroke fill;text-shadow:0 .06em 0 var(--orange),0 .12em 0 var(--yellow),0 .18em 0 var(--green),0 .24em 0 var(--ink);padding-bottom:.3em}
+.footer-floor{margin-top:20px;border-top:5px solid var(--ink);padding:30px 0 0;background-color:#fff;background-image:conic-gradient(var(--blush) 25%,#fff 0 50%,var(--blush) 0 75%,#fff 0);background-size:84px 84px}
+.footer-crew{display:flex;justify-content:center;align-items:flex-end;gap:clamp(10px,6vw,90px);margin-top:-120px;flex-wrap:wrap}
+.copy{position:relative;z-index:3;background:var(--ink);color:var(--cream);padding:16px 20px;font-weight:700;font-size:.85rem}
+
+/* ---------- Toast & confetti ---------- */
+.toast{position:fixed;left:50%;bottom:26px;z-index:100;max-width:min(92vw,460px);transform:translate(-50%,160%);background:var(--cream);border:4px solid var(--ink);border-radius:16px;padding:13px 20px;font-weight:700;text-align:center;box-shadow:6px 6px 0 var(--ink);transition:transform .5s var(--ease);pointer-events:none}
+.toast.show{transform:translate(-50%,0)}
+.toast.good{background:var(--green)}
+.toast.bad{background:var(--yellow)}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:99;overflow:hidden}
+.confetti span{position:absolute;top:-40px;left:var(--x);font-weight:700;text-shadow:2px 2px 0 var(--ink);animation:fall var(--t) var(--dl) cubic-bezier(.3,.6,.4,1) forwards}
+
+/* ---------- Keyframes ---------- */
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-14px) rotate(1.5deg)}}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-22px) rotate(8deg)}}
+@keyframes twinkle{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.35) rotate(25deg)}}
+@keyframes drift{from{transform:translateX(-18px)}to{transform:translateX(28px)}}
+@keyframes wob{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes fall{to{transform:translate(var(--dx),110vh) rotate(var(--r));opacity:.9}}
+
+/* ---------- Responsive ---------- */
+@media (max-width:980px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .panels{grid-template-columns:1fr}
+  .recent-grid{grid-template-columns:repeat(2,1fr)}
+  .feat-grid{grid-template-columns:1fr;max-width:460px;margin-inline:auto}
+}
+@media (max-width:640px){
+  .wrap{width:min(1120px,100% - 32px)}
+  .legend{display:none}
+  .row2{grid-template-columns:1fr}
+  .stats{gap:26px}
+  .recent-grid{grid-template-columns:1fr;gap:28px}
+  .bar-row{grid-template-columns:78px 1fr 64px}
+  .badge{display:none}
+  .notes .n3,.notes .n4,.spark.s3{display:none}
+  .crew{margin-top:-120px}
+  .win{box-shadow:6px 6px 0 var(--ink),11px 11px 0 var(--accent)}
+  .form-foot .btn{width:100%}
+  .cloud{width:150px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .reveal{opacity:1;transform:none}
+  .bar i{width:var(--w,0)}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ Simbol SVG (karakter & dekorasi) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="cloud" viewBox="0 0 200 110">
+      <g fill="#1b1240" stroke="#1b1240" stroke-width="12" stroke-linejoin="round">
+        <circle cx="50" cy="70" r="28"/><circle cx="95" cy="48" r="38"/><circle cx="140" cy="60" r="32"/><circle cx="168" cy="76" r="22"/><rect x="50" y="72" width="118" height="26"/>
+      </g>
+      <g fill="#fff">
+        <circle cx="50" cy="70" r="28"/><circle cx="95" cy="48" r="38"/><circle cx="140" cy="60" r="32"/><circle cx="168" cy="76" r="22"/><rect x="50" y="72" width="118" height="26"/>
+      </g>
+    </symbol>
+
+    <symbol id="sparkle" viewBox="-26 -26 52 52">
+      <path d="M0-24C2-8 8-2 24 0 8 2 2 8 0 24-2 8-8 2-24 0-8-2-2-8 0-24Z" fill="#ffd23f" stroke="#1b1240" stroke-width="3" stroke-linejoin="round"/>
+    </symbol>
+
+    <!-- Vinyl berkaki -->
+    <symbol id="c-vinyl" viewBox="0 0 180 220">
+      <path d="M72 150 L62 190" stroke="#1b1240" stroke-width="9" stroke-linecap="round" fill="none"/>
+      <path d="M108 150 L120 190" stroke="#1b1240" stroke-width="9" stroke-linecap="round" fill="none"/>
+      <ellipse cx="56" cy="197" rx="22" ry="11" fill="#ff3b5c" stroke="#1b1240" stroke-width="5"/>
+      <ellipse cx="128" cy="197" rx="22" ry="11" fill="#1ec8c8" stroke="#1b1240" stroke-width="5"/>
+      <path d="M22 98 Q6 108 10 128" stroke="#1b1240" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <circle cx="10" cy="130" r="10" fill="#fff6e3" stroke="#1b1240" stroke-width="4"/>
+      <path d="M158 98 Q176 90 172 66" stroke="#1b1240" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <circle cx="172" cy="62" r="10" fill="#fff6e3" stroke="#1b1240" stroke-width="4"/>
+      <circle cx="90" cy="86" r="70" fill="#1b1240" stroke="#1b1240" stroke-width="5"/>
+      <circle cx="90" cy="86" r="59" fill="none" stroke="#5a4bb0" stroke-width="3"/>
+      <circle cx="90" cy="86" r="48" fill="none" stroke="#5a4bb0" stroke-width="3"/>
+      <path d="M38 56 A60 60 0 0 1 82 28" stroke="#fff" stroke-opacity=".6" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <circle cx="90" cy="86" r="34" fill="#ff3b5c" stroke="#fff6e3" stroke-width="4"/>
+      <circle cx="79" cy="80" r="6" fill="#1b1240"/><circle cx="101" cy="80" r="6" fill="#1b1240"/>
+      <circle cx="81" cy="78" r="2" fill="#fff"/><circle cx="103" cy="78" r="2" fill="#fff"/>
+      <path d="M77 94 Q90 108 103 94" stroke="#1b1240" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <ellipse cx="68" cy="92" rx="6" ry="4" fill="#ffd23f" opacity=".85"/><ellipse cx="112" cy="92" rx="6" ry="4" fill="#ffd23f" opacity=".85"/>
+    </symbol>
+
+    <!-- Matahari berheadphone -->
+    <symbol id="c-sun" viewBox="0 0 200 230">
+      <g transform="translate(100 100)" fill="#ff7a1a" stroke="#1b1240" stroke-width="4" stroke-linejoin="round">
+        <polygon points="-11,-64 0,-94 11,-64"/>
+        <polygon points="-11,-64 0,-94 11,-64" transform="rotate(30)"/>
+        <polygon points="-11,-64 0,-94 11,-64" transform="rotate(60)"/>
+        <polygon points="-11,-64 0,-94 11,-64" transform="rotate(90)"/>
+        <polygon points="-11,-64 0,-94 11,-64" transform="rotate(120)"/>
+        <polygon points="-11,-64 0,-94 11,-64" transform="rotate(150)"/>
+        <polygon points="-11,-64 0,-94 11,-64" transform="rotate(180)"/>
+        <polygon points="-11,-64 0,-94 11,-64" transform="rotate(210)"/>
+        <polygon points="-11,-64 0,-94 11,-64" transform="rotate(240)"/>
+        <polygon points="-11,-64 0,-94 11,-64" transform="rotate(270)"/>
+        <polygon points="-11,-64 0,-94 11,-64" transform="rotate(300)"/>
+        <polygon points="-11,-64 0,-94 11,-64" transform="rotate(330)"/>
+      </g>
+      <path d="M86 160 L80 204" stroke="#1b1240" stroke-width="9" stroke-linecap="round" fill="none"/>
+      <path d="M114 160 L122 204" stroke="#1b1240" stroke-width="9" stroke-linecap="round" fill="none"/>
+      <ellipse cx="72" cy="212" rx="22" ry="11" fill="#3b82f6" stroke="#1b1240" stroke-width="5"/>
+      <ellipse cx="132" cy="212" rx="22" ry="11" fill="#3ddc84" stroke="#1b1240" stroke-width="5"/>
+      <circle cx="100" cy="100" r="64" fill="#ffd23f" stroke="#1b1240" stroke-width="5"/>
+      <path d="M28 104 A72 72 0 0 1 172 104" stroke="#1b1240" stroke-width="14" fill="none" stroke-linecap="round"/>
+      <path d="M28 104 A72 72 0 0 1 172 104" stroke="#1ec8c8" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <rect x="12" y="78" width="30" height="54" rx="14" fill="#ff7ab8" stroke="#1b1240" stroke-width="5"/>
+      <rect x="158" y="78" width="30" height="54" rx="14" fill="#ff7ab8" stroke="#1b1240" stroke-width="5"/>
+      <ellipse cx="80" cy="96" rx="7" ry="9" fill="#1b1240"/><ellipse cx="120" cy="96" rx="7" ry="9" fill="#1b1240"/>
+      <circle cx="82" cy="92" r="2.6" fill="#fff"/><circle cx="122" cy="92" r="2.6" fill="#fff"/>
+      <ellipse cx="66" cy="116" rx="9" ry="5" fill="#ff7ab8" opacity=".8"/><ellipse cx="134" cy="116" rx="9" ry="5" fill="#ff7ab8" opacity=".8"/>
+      <path d="M82 114 Q100 142 118 114 Z" fill="#1b1240" stroke="#1b1240" stroke-width="3" stroke-linejoin="round"/>
+      <ellipse cx="100" cy="127" rx="9" ry="5" fill="#ff3b5c"/>
+    </symbol>
+
+    <!-- Bunga bernada -->
+    <symbol id="c-flower" viewBox="0 0 170 240">
+      <path d="M85 112 Q80 160 85 204" stroke="#1b1240" stroke-width="16" fill="none" stroke-linecap="round"/>
+      <path d="M85 112 Q80 160 85 204" stroke="#3ddc84" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <ellipse cx="58" cy="158" rx="22" ry="10" transform="rotate(-28 58 158)" fill="#3ddc84" stroke="#1b1240" stroke-width="4"/>
+      <ellipse cx="114" cy="176" rx="22" ry="10" transform="rotate(28 114 176)" fill="#3ddc84" stroke="#1b1240" stroke-width="4"/>
+      <path d="M78 204 L68 218" stroke="#1b1240" stroke-width="8" stroke-linecap="round"/>
+      <path d="M92 204 L104 218" stroke="#1b1240" stroke-width="8" stroke-linecap="round"/>
+      <ellipse cx="62" cy="226" rx="20" ry="10" fill="#ff7a1a" stroke="#1b1240" stroke-width="5"/>
+      <ellipse cx="112" cy="226" rx="20" ry="10" fill="#ff7ab8" stroke="#1b1240" stroke-width="5"/>
+      <g stroke="#1b1240" stroke-width="4">
+        <ellipse cx="85" cy="40" rx="19" ry="30" fill="#ff7ab8"/>
+        <ellipse cx="85" cy="40" rx="19" ry="30" transform="rotate(45 85 85)" fill="#ffd23f"/>
+        <ellipse cx="85" cy="40" rx="19" ry="30" transform="rotate(90 85 85)" fill="#1ec8c8"/>
+        <ellipse cx="85" cy="40" rx="19" ry="30" transform="rotate(135 85 85)" fill="#b583ff"/>
+        <ellipse cx="85" cy="40" rx="19" ry="30" transform="rotate(180 85 85)" fill="#ff3b5c"/>
+        <ellipse cx="85" cy="40" rx="19" ry="30" transform="rotate(225 85 85)" fill="#3ddc84"/>
+        <ellipse cx="85" cy="40" rx="19" ry="30" transform="rotate(270 85 85)" fill="#ff7a1a"/>
+        <ellipse cx="85" cy="40" rx="19" ry="30" transform="rotate(315 85 85)" fill="#3b82f6"/>
+      </g>
+      <circle cx="85" cy="85" r="31" fill="#fff6e3" stroke="#1b1240" stroke-width="5"/>
+      <circle cx="74" cy="80" r="5" fill="#1b1240"/><circle cx="96" cy="80" r="5" fill="#1b1240"/>
+      <circle cx="76" cy="78" r="1.8" fill="#fff"/><circle cx="98" cy="78" r="1.8" fill="#fff"/>
+      <path d="M72 92 Q85 106 98 92" stroke="#1b1240" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="65" cy="92" rx="5" ry="3.5" fill="#ff7ab8"/><ellipse cx="105" cy="92" rx="5" ry="3.5" fill="#ff7ab8"/>
+    </symbol>
+
+    <!-- Sarung tangan memegang mik -->
+    <symbol id="c-mic" viewBox="0 0 160 230">
+      <rect x="68" y="62" width="24" height="52" rx="9" fill="#3a2f7a" stroke="#1b1240" stroke-width="5"/>
+      <circle cx="80" cy="38" r="28" fill="#c9c3f5" stroke="#1b1240" stroke-width="5"/>
+      <path d="M60 28 H100 M56 40 H104 M62 52 H98" stroke="#1b1240" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M80 12 V64" stroke="#1b1240" stroke-width="3.5"/>
+      <rect x="62" y="62" width="36" height="14" rx="6" fill="#ff3b5c" stroke="#1b1240" stroke-width="5"/>
+      <rect x="40" y="100" width="82" height="66" rx="28" fill="#fff6e3" stroke="#1b1240" stroke-width="5"/>
+      <path d="M62 108 V132 M82 106 V132 M102 108 V132" stroke="#1b1240" stroke-width="4.5" stroke-linecap="round"/>
+      <ellipse cx="42" cy="136" rx="14" ry="20" transform="rotate(18 42 136)" fill="#fff6e3" stroke="#1b1240" stroke-width="5"/>
+      <rect x="56" y="162" width="52" height="38" rx="12" fill="#3b82f6" stroke="#1b1240" stroke-width="5"/>
+      <path d="M62 176 H102" stroke="#fff6e3" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="136" cy="40" r="5" fill="#ffd23f" stroke="#1b1240" stroke-width="3"/>
+      <circle cx="26" cy="22" r="4" fill="#ff7ab8" stroke="#1b1240" stroke-width="3"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="atas">
+  <svg class="cloud c1" aria-hidden="true"><use href="#cloud"/></svg>
+  <svg class="cloud c2" aria-hidden="true"><use href="#cloud"/></svg>
+  <svg class="cloud c3" aria-hidden="true"><use href="#cloud"/></svg>
+  <div class="notes" aria-hidden="true"><span class="n1">♪</span><span class="n2">♫</span><span class="n3">♬</span><span class="n4">♪</span></div>
+  <svg class="spark s1" viewBox="-26 -26 52 52" aria-hidden="true"><use href="#sparkle"/></svg>
+  <svg class="spark s2" viewBox="-26 -26 52 52" aria-hidden="true"><use href="#sparkle"/></svg>
+  <svg class="spark s3" viewBox="-26 -26 52 52" aria-hidden="true"><use href="#sparkle"/></svg>
+
+  <div class="wrap">
+    <div class="topbar reveal">
+      <a class="logo" href="#atas"><i>●</i> MIXTAPE.CO</a>
+      <div class="legend" aria-hidden="true">
+        <span style="background:#ff7ab8">Pop</span><span style="background:#ff3b5c">Rock</span><span style="background:#ffd23f">Hip-Hop</span><span style="background:#1ec8c8">EDM</span><span style="background:#3ddc84">Indie</span><span style="background:#ff7a1a">Dangdut</span>
+      </div>
+    </div>
+
+    <div class="hero-main">
+      <span class="pill reveal" style="--d:100ms">MX-SS/SRV — NO.001 · 13 Genre</span>
+      <div class="stage-title reveal reveal-pop" style="--d:200ms">
+        <h1 class="title"><span>Musik</span><span class="l2">Favorit</span></h1>
+      </div>
+      <p class="sub reveal" style="--d:350ms">Apa genre, artis, dan lagu yang bikin harimu lebih berwarna? Isi survei singkat ini, lalu intip selera musik semua orang!</p>
+      <div class="cta reveal" style="--d:450ms">
+        <a class="btn" href="#survei">🎤 Isi Survei</a>
+        <a class="btn alt" href="#hasil">📊 Lihat Hasil</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="floor">
+    <div class="badge" aria-hidden="true">FREE<br>VIBES<br>ONLY</div>
+    <div class="wrap">
+      <div class="crew">
+        <div class="char reveal reveal-left" style="--d:200ms"><svg class="bob" viewBox="0 0 170 240" role="img" aria-label="Bunga bernada"><use href="#c-flower"/></svg><span class="coin"></span></div>
+        <div class="char big reveal reveal-pop" style="--d:350ms"><svg class="bob d1" viewBox="0 0 180 220" role="img" aria-label="Piringan vinyl berkaki"><use href="#c-vinyl"/></svg><span class="coin"></span></div>
+        <div class="char big reveal reveal-pop" style="--d:450ms"><svg class="bob d2" viewBox="0 0 200 230" role="img" aria-label="Matahari berheadphone"><use href="#c-sun"/></svg><span class="coin"></span></div>
+        <div class="char reveal reveal-right" style="--d:550ms"><svg class="bob d3" viewBox="0 0 160 230" role="img" aria-label="Sarung tangan memegang mikrofon"><use href="#c-mic"/></svg><span class="coin"></span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Pop <b>♪</b> Rock <b>♫</b> Hip-Hop <b>♬</b> R&amp;B <b>♪</b> EDM <b>♫</b> Dangdut <b>♬</b> Jazz <b>♪</b> Indie <b>♫</b> K-Pop <b>♬</b> Metal <b>♪</b> Reggae <b>♫</b> Klasik <b>♬</b></span>
+    <span>Pop <b>♪</b> Rock <b>♫</b> Hip-Hop <b>♬</b> R&amp;B <b>♪</b> EDM <b>♫</b> Dangdut <b>♬</b> Jazz <b>♪</b> Indie <b>♫</b> K-Pop <b>♬</b> Metal <b>♪</b> Reggae <b>♫</b> Klasik <b>♬</b></span>
+  </div>
+</div>
+
+<main>
+  <!-- ============ FITUR ============ -->
+  <section class="section" id="tentang">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="pill">Kenapa ikutan?</span>
+        <h2 class="h2">Gampang &amp; Seru</h2>
+      </div>
+      <div class="feat-grid">
+        <article class="win feat reveal" style="--accent:var(--teal);--d:0ms">
+          <div class="win-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="win-title">01</span></div>
+          <div class="body"><div class="ico" aria-hidden="true">🎧</div><h3>1 Menit Aja</h3><p>Cuma beberapa pertanyaan ringan soal selera musikmu. Tanpa ribet, tanpa daftar akun.</p></div>
+        </article>
+        <article class="win feat reveal" style="--accent:var(--orange);--d:140ms">
+          <div class="win-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="win-title">02</span></div>
+          <div class="body"><div class="ico" aria-hidden="true" style="--accent:var(--yellow);background:var(--yellow)">💾</div><h3>Langsung Tersimpan</h3><p>Jawabanmu masuk rapi ke Google Spreadsheet dan siap dianalisis kapan saja.</p></div>
+        </article>
+        <article class="win feat reveal" style="--accent:var(--green);--d:280ms">
+          <div class="win-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="win-title">03</span></div>
+          <div class="body"><div class="ico" aria-hidden="true" style="background:var(--pink)">📊</div><h3>Hasil Live</h3><p>Lihat genre, artis, dan platform paling hits dari semua responden secara langsung.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SURVEI ============ -->
+  <section class="section" id="survei">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="pill">Langkah 1</span>
+        <h2 class="h2">Isi Survei</h2>
+        <p>Pilih jawaban yang paling menggambarkan seleramu. Kolom bertanda * wajib diisi.</p>
+      </div>
+
+      <div class="win form-win reveal reveal-pop">
+        <div class="win-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="win-title">survei-musik.exe</span></div>
+        <form class="form-body" id="surveyForm" novalidate autocomplete="off">
+          <div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+          <div class="row2">
+            <div class="field">
+              <label class="label" for="nama">Nama *</label>
+              <input class="in-box" id="nama" name="nama" type="text" maxlength="40" placeholder="Nama panggilanmu">
+              <div class="err" data-err="nama" role="alert"></div>
+            </div>
+            <div class="field">
+              <label class="label" for="usia">Usia <small>(opsional)</small></label>
+              <select class="in-box" id="usia" name="usia">
+                <option value="">Pilih rentang usia</option>
+                <option value="&lt;18">Di bawah 18</option>
+                <option value="18-24">18 – 24</option>
+                <option value="25-34">25 – 34</option>
+                <option value="35-44">35 – 44</option>
+                <option value="45+">45 ke atas</option>
+              </select>
+              <div class="err"></div>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="label" id="lbGenre">Genre favoritmu *</span>
+            <div class="chips" role="radiogroup" aria-labelledby="lbGenre">
+              <label class="chip" style="--c:#ff7ab8" data-emoji="🎤"><input type="radio" name="genre" value="Pop"><span>🎤 Pop</span></label>
+              <label class="chip" style="--c:#ff3b5c" data-emoji="🎸"><input type="radio" name="genre" value="Rock"><span>🎸 Rock</span></label>
+              <label class="chip" style="--c:#ffd23f" data-emoji="🎧"><input type="radio" name="genre" value="Hip-Hop"><span>🎧 Hip-Hop</span></label>
+              <label class="chip" style="--c:#b583ff" data-emoji="💜"><input type="radio" name="genre" value="R&amp;B"><span>💜 R&amp;B</span></label>
+              <label class="chip" style="--c:#1ec8c8" data-emoji="🎛️"><input type="radio" name="genre" value="EDM"><span>🎛️ EDM</span></label>
+              <label class="chip" style="--c:#ff7a1a" data-emoji="🥁"><input type="radio" name="genre" value="Dangdut"><span>🥁 Dangdut</span></label>
+              <label class="chip" style="--c:#3b82f6" data-emoji="🎺"><input type="radio" name="genre" value="Jazz"><span>🎺 Jazz</span></label>
+              <label class="chip" style="--c:#3ddc84" data-emoji="🌿"><input type="radio" name="genre" value="Indie"><span>🌿 Indie</span></label>
+              <label class="chip" style="--c:#ff9ad5" data-emoji="💖"><input type="radio" name="genre" value="K-Pop"><span>💖 K-Pop</span></label>
+              <label class="chip" style="--c:#a7a3c9" data-emoji="🤘"><input type="radio" name="genre" value="Metal"><span>🤘 Metal</span></label>
+              <label class="chip" style="--c:#a3e635" data-emoji="🌴"><input type="radio" name="genre" value="Reggae"><span>🌴 Reggae</span></label>
+              <label class="chip" style="--c:#fbbf24" data-emoji="🎻"><input type="radio" name="genre" value="Klasik"><span>🎻 Klasik</span></label>
+              <label class="chip" style="--c:#fff6e3" data-emoji="✨"><input type="radio" name="genre" value="Lainnya"><span>✨ Lainnya</span></label>
+            </div>
+            <div class="err" data-err="genre" role="alert"></div>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label class="label" for="artis">Artis / Band favorit *</label>
+              <input class="in-box" id="artis" name="artis" type="text" maxlength="60" placeholder="Contoh: Sheila On 7">
+              <div class="err" data-err="artis" role="alert"></div>
+            </div>
+            <div class="field">
+              <label class="label" for="lagu">Lagu favorit *</label>
+              <input class="in-box" id="lagu" name="lagu" type="text" maxlength="80" placeholder="Contoh: Dan">
+              <div class="err" data-err="lagu" role="alert"></div>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="label" id="lbPlatform">Platform yang paling sering dipakai *</span>
+            <div class="chips" role="radiogroup" aria-labelledby="lbPlatform">
+              <label class="chip" style="--c:#3ddc84"><input type="radio" name="platform" value="Spotify"><span>🟢 Spotify</span></label>
+              <label class="chip" style="--c:#ff3b5c"><input type="radio" name="platform" value="YouTube Music"><span>🔴 YouTube Music</span></label>
+              <label class="chip" style="--c:#ff7a1a"><input type="radio" name="platform" value="YouTube"><span>▶️ YouTube</span></label>
+              <label class="chip" style="--c:#ff7ab8"><input type="radio" name="platform" value="Apple Music"><span>🍎 Apple Music</span></label>
+              <label class="chip" style="--c:#1ec8c8"><input type="radio" name="platform" value="JOOX"><span>🎶 JOOX</span></label>
+              <label class="chip" style="--c:#ffd23f"><input type="radio" name="platform" value="Lainnya"><span>✨ Lainnya</span></label>
+            </div>
+            <div class="err" data-err="platform" role="alert"></div>
+          </div>
+
+          <div class="field">
+            <span class="label" id="lbWaktu">Biasanya dengar musik kapan? <small>(opsional)</small></span>
+            <div class="chips" role="radiogroup" aria-labelledby="lbWaktu">
+              <label class="chip" style="--c:#ffd23f"><input type="radio" name="waktu" value="Pagi"><span>🌅 Pagi</span></label>
+              <label class="chip" style="--c:#ff7a1a"><input type="radio" name="waktu" value="Siang"><span>☀️ Siang</span></label>
+              <label class="chip" style="--c:#b583ff"><input type="radio" name="waktu" value="Malam"><span>🌙 Malam</span></label>
+              <label class="chip" style="--c:#1ec8c8"><input type="radio" name="waktu" value="Belajar / Kerja"><span>💻 Belajar / Kerja</span></label>
+              <label class="chip" style="--c:#3ddc84"><input type="radio" name="waktu" value="Olahraga"><span>🏃 Olahraga</span></label>
+              <label class="chip" style="--c:#ff7ab8"><input type="radio" name="waktu" value="Perjalanan"><span>🚌 Perjalanan</span></label>
+            </div>
+            <div class="err"></div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="rating">Seberapa cinta kamu sama musik?</label>
+            <div class="rating-wrap">
+              <input id="rating" name="rating" type="range" min="1" max="10" step="1" value="8" aria-describedby="ratingOut">
+              <output class="rating-out" id="ratingOut" for="rating">8</output>
+            </div>
+            <div class="scale"><span>Biasa aja</span><span>Cinta banget 💘</span></div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="komentar">Pesan untuk dunia musik <small>(opsional)</small></label>
+            <textarea class="in-box" id="komentar" name="komentar" maxlength="200" placeholder="Ceritakan kenapa lagu itu spesial buatmu…"></textarea>
+            <div class="counter" id="komentarCount">0/200</div>
+          </div>
+
+          <div class="form-foot">
+            <small>Nama depanmu mungkin tampil di bagian hasil. Jangan isi data pribadi yang sensitif ya.</small>
+            <button class="btn" id="submitBtn" type="submit"><span class="btn-ico" aria-hidden="true">💿</span><span class="btn-text">Kirim Jawaban</span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HASIL ============ -->
+  <section class="section" id="hasil">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="pill">Langkah 2</span>
+        <h2 class="h2">Hasil Survei</h2>
+        <p>Rangkuman selera musik semua responden, diperbarui setiap kali halaman dimuat.</p>
+      </div>
+
+      <p class="state" id="resultsState" role="status" hidden></p>
+      <p class="demo-note" id="demoNote" hidden>⚠️ Mode demo: ini data contoh. Isi <b>CONFIG.SCRIPT_URL</b> di app.js agar hasil asli dari spreadsheet tampil.</p>
+
+      <div class="stats">
+        <div class="win stat reveal reveal-pop" style="--accent:var(--teal);--d:0ms">
+          <div class="win-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <div class="body"><div class="num" id="statTotal">0</div><div class="cap">Responden</div></div>
+        </div>
+        <div class="win stat reveal reveal-pop" style="--accent:var(--pink);--d:100ms">
+          <div class="win-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <div class="body"><div class="num" id="statRating">0.0</div><div class="cap">Rata-rata cinta musik</div></div>
+        </div>
+        <div class="win stat reveal reveal-pop" style="--accent:var(--yellow);--d:200ms">
+          <div class="win-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <div class="body"><div class="num" id="statGenre">—</div><div class="cap">Genre juara</div></div>
+        </div>
+        <div class="win stat reveal reveal-pop" style="--accent:var(--green);--d:300ms">
+          <div class="win-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <div class="body"><div class="num" id="statPlatform">—</div><div class="cap">Platform favorit</div></div>
+        </div>
+      </div>
+
+      <div class="panels">
+        <div class="win panel reveal reveal-left" style="--accent:var(--orange)">
+          <div class="win-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="win-title">genre-teratas</span></div>
+          <div class="body"><h3>🏆 Genre Terpopuler</h3><div id="genreBars"></div></div>
+        </div>
+        <div class="stack">
+          <div class="win panel reveal reveal-right" style="--accent:var(--lilac)">
+            <div class="win-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="win-title">artis-teratas</span></div>
+            <div class="body"><h3>🎤 Artis Favorit</h3><ol class="rank" id="artistRank"></ol></div>
+          </div>
+          <div class="win panel reveal reveal-right" style="--accent:var(--teal);--d:120ms">
+            <div class="win-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="win-title">platform</span></div>
+            <div class="body"><h3>📱 Platform Streaming</h3><div id="platformBars"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="recent-title reveal"><h2 class="h2" style="font-size:clamp(1.8rem,5vw,3.2rem)">Jawaban Terbaru</h2></div>
+      <div class="recent-grid" id="recentGrid"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <h2 class="big reveal reveal-pop">Terima<br>Kasih!</h2>
+  </div>
+  <div class="footer-floor">
+    <div class="wrap">
+      <div class="footer-crew">
+        <div class="char reveal reveal-left"><svg class="bob" viewBox="0 0 170 240" aria-hidden="true"><use href="#c-flower"/></svg><span class="coin"></span></div>
+        <div class="char reveal reveal-right"><svg class="bob d2" viewBox="0 0 160 230" aria-hidden="true"><use href="#c-mic"/></svg><span class="coin"></span></div>
+      </div>
+    </div>
+    <div class="copy">© <span id="year">2026</span> MIXTAPE.CO · Dibuat dengan 🎶 dan banyak warna</div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
